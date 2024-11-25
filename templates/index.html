@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WebGL Sphere Simulation</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+    canvas {
+      display: block;
+    }
+    #controls {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: rgba(255, 255, 255, 0.8);
+      padding: 10px;
+      border-radius: 8px;
+    }
+    #report {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(255, 255, 255, 0.8);
+      padding: 10px;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div id="controls">
+    <h3>Simulation Controls</h3>
+    <label for="ballsPerSecond">Balls per second:</label>
+    <input id="ballsPerSecond" type="number" step="1" value="5" /><br />
+    <label for="testDuration">Test duration (seconds):</label>
+    <input id="testDuration" type="number" step="1" value="10" /><br />
+    <label for="speed">Speed:</label>
+    <input id="speed" type="number" step="0.1" value="1" /><br />
+    <button id="play">Play</button>
+    <button id="reset">Reset</button>
+  </div>
+  <div id="report">
+    <h3>Performance Report</h3>
+    <p>Run a simulation to see the report here.</p>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/110/three.min.js"></script>
+  <script src="{{ url_for('static', filename='js/balls.js') }}"></script>
+</body>
+</html>
