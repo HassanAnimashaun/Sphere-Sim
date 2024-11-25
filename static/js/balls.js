@@ -128,9 +128,9 @@ function animate() {
 
 // Event listeners for play and reset
 document.getElementById("play").addEventListener("click", startSimulation);
+// when reset is clicked clears all speahers  
 document.getElementById("reset").addEventListener("click", () => {
-  isTestRunning = false;
-  spheres.forEach((sphere) => scene.remove(sphere));
+  spheres.forEach(sphere => scene.remove(sphere));
   spheres = [];
-  console.log("Simulation reset.");
+  document.getElementById("report").innerHTML = "";
 });
