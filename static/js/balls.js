@@ -4,7 +4,7 @@ scene.background = new THREE.Color(0xeeeeee);
 
 // Camera setup
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-camera.position.z = 10;
+camera.position.z = 10; // camera position
 
 // Renderer setup
 const renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -34,43 +34,35 @@ function createSphere(radius, positionX, positionY, positionZ) {
 let spheres = [];
 let frameCount = 0;
 let totalTime = 0;
-let lastTime = performance.now();
-let startTime = performance.now();
+let lastTime = performance.now(); 
+let startTime = performance.now(); //current time in milliseconds
 let ballsPerSecond = 5;
 let testDuration = 10000;
 let isTestRunning = false;
 let lastBallTime = 0;
 
 function monitorPerformance() {
-  const currentTime = performance.now();
-  const deltaTime = currentTime - lastTime;
-  lastTime = currentTime;
+  const currentTime = performance.now(); // gets current time in milliseconds
+  const deltaTime = currentTime - lastTime; //time between frames
+  lastTime = currentTime; //updates current frame timestamp
 
-  frameCount++;
-  totalTime += deltaTime;
+  frameCount++; //increment frame count
+  totalTime += deltaTime; //increment total time
 
-  // Log frame rate every second
-  if (totalTime >= 1000) {
-    const avgFrameRate = frameCount / (totalTime / 1000);
-    console.log(`Average Frame Rate: ${avgFrameRate.toFixed(2)} FPS`);
-    totalTime = 0;
-    frameCount = 0;
-  }
 
-  // Add spheres at the specified rate
+  // Add spheres at the specified rate 
   if (isTestRunning && currentTime - lastBallTime >= 1000 / ballsPerSecond) {
     const sphere = createSphere(1, Math.random() * 10 - 5, Math.random() * 10 - 5, Math.random() * 10 - 5);
     spheres.push(sphere);
-    lastBallTime = currentTime;
-    console.log(`Added sphere. Total spheres: ${spheres.length}`);
+    lastBallTime += 1000 / ballsPerSecond; // Prevents drift in ball creation
   }
 }
 
 // Generate a performance report
 function generateReport() {
   const endTime = performance.now();
-  const totalDuration = (endTime - startTime) / 1000;
-  const avgFrameRate = frameCount / (totalTime / 1000);
+  const totalDuration = (endTime - startTime) / 1000; //converts milliseconds to seconds
+  const avgFrameRate = frameCount / (totalTime / 1000); //milliseconds to seconds and divides the total frame count by this duration to calculate the average FPS.
 
   const reportContent = `
     <h3>Simulation Report</h3>
@@ -81,11 +73,6 @@ function generateReport() {
 
   const reportDiv = document.getElementById("report");
   reportDiv.innerHTML = reportContent;
-
-  console.log("----- Simulation Report -----");
-  console.log(`Test Duration: ${totalDuration.toFixed(2)} seconds`);
-  console.log(`Total Spheres Added: ${spheres.length}`);
-  console.log(`Average Frame Rate: ${avgFrameRate.toFixed(2)} FPS`);
 }
 
 // Resize handling
@@ -99,7 +86,6 @@ window.addEventListener("resize", () => {
 function startSimulation() {
   ballsPerSecond = parseFloat(document.getElementById("ballsPerSecond").value) || 5;
   testDuration = parseFloat(document.getElementById("testDuration").value) * 1000 || 10000;
-
   spheres = [];
   frameCount = 0;
   totalTime = 0;
